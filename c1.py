@@ -4,7 +4,7 @@ import codecs as c
 import socket
 import os
 
-
+print('new')
 def fin1(file):
     with open(file, "rb") as imageFile:
         s = base64.b64encode(imageFile.read())
@@ -20,8 +20,9 @@ def client():
             s.connect((host, port))
             while True:
                 fname = input('Enter filename: ').strip()
-                s.sendall(str.encode(fname))
                 send = fin1(fname)
+                length = str(len(send)).encode()
+                s.sendall(length)
                 s.sendall(send)
                 if send.lower() == 'exit':
                     print('Programme Terminated')

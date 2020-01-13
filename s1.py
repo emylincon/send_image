@@ -4,7 +4,7 @@ import codecs as c
 
 import socket
 import os
-
+print('new')
 def fin2(barr, dfile):  #this returns a image
     fh = open(dfile, "wb")
     #fh.write(barr.decode('base64'))
@@ -33,9 +33,11 @@ def unicast_call():
                 print('Connected: ', addr)
                 while True:
                     data = conn.recv(1024)
-                    fname = data.decode()
-                    data = conn.recv(1024)
-                    fin2(barr=data, dfile=fname)
+                    l = data.decode()
+                    data_ = str.encode('')
+                    while len(data_) < int(l):
+                        data_ += conn.recv(1024)
+                    fin2(barr=data_, dfile='new.jpg')
                     if data.decode().lower() == 'exit':
                         print('Programme Terminated by Client')
                         break
