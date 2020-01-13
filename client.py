@@ -30,7 +30,7 @@ while(1):
         print("Enter file name of the image with extentsion (example: filename.jpg,filename.png or if a video file then filename.mpg etc) - ")
         fname = input().encode('utf-8')
         client_socket.send(fname)
-        fname = 'documents/'+fname.decode()
+        fname = ''+fname.decode()
         fp = open(fname,'w')
         while True:
             strng = client_socket.recv(512)
