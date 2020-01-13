@@ -4,7 +4,7 @@ import codecs as c
 
 import socket
 import os
-print('new')
+
 def fin2(barr, dfile):  #this returns a image
     fh = open(dfile, "wb")
     #fh.write(barr.decode('base64'))

@@ -4,7 +4,7 @@ import codecs as c
 import socket
 import os
 
-print('new')
+
 def fin1(file):
     with open(file, "rb") as imageFile:
         s = base64.b64encode(imageFile.read())
