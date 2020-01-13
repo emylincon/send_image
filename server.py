@@ -20,7 +20,7 @@ while (1):
     choice = client_socket.recv(1024)
     choice = int(choice)
     if(choice == 1):
-        data = client_socket.recv(1024)
+        data = client_socket.recv(1024).decode()
         print("The following data was received - ",data)
         print("Opening file - ",data)
         fp = open(data,'r')
@@ -32,7 +32,7 @@ while (1):
         #client_socket.close()
 
     if (choice == 2 or choice == 3):
-        data = client_socket.recv(1024)
+        data = client_socket.recv(1024).decode()
         print("The following data was received - ",data)
         print("Opening file - ",data)
         img = open(data,'r')
