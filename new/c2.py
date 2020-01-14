@@ -5,16 +5,16 @@ import socket
 import os
 
 
-def fin2(barr, dfile):  #this returns a image
+def fin2(barr, dfile):  # this returns a image
     fh = open(dfile, "wb")
-    #fh.write(barr.decode('base64'))
+    # fh.write(barr.decode('base64'))
     fh.write(c.decode(obj=barr, encoding='base64'))
     fh.close()
 
 
 def client():
     host = input('Server IP: ').strip()  # The server's hostname or IP address
-    port = 65001        # The port used by the server
+    port = 65001  # The port used by the server
 
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -43,4 +43,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
