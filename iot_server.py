@@ -219,6 +219,11 @@ def unicast_call():
                             print('Client Disconnected')
                             conn.close()
                             break
+                        else:
+                            print(msg)
+                            conn.close()
+                            break
+                        
     except Exception as e:
         print(e)
 
