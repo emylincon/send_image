@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 apt update && apt upgrade -y
-apt install matplotlib -y
-apt install drawnow -y
-apt install psutil
+pip3 install matplotlib
+pip3 install drawnow
+pip3 install psutil
