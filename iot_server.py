@@ -189,7 +189,7 @@ def unicast_call():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((host, port))
             while True:
-                s.listen()
+                s.listen()  #
                 conn, addr = s.accept()
                 with conn:
                     print('Client Connected: ', addr)
