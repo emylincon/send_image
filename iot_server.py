@@ -159,7 +159,7 @@ def graph_temp():
         try:
             read_temp()
             drawnow(plot_graphs)
-            time.sleep(.7)
+            time.sleep(.6)
         except KeyboardInterrupt:
             print("\nProgramme Terminated\n")
             break
@@ -197,17 +197,24 @@ def unicast_call():
                         data = conn.recv(1024)
                         msg = data.decode()
                         if msg == 'send image':
-                            delete_previous(path=file_name)
-                            save = 1
-                            time.sleep(2)
-                            send = fin1(file_name)
-                            length = str(len(send)).encode()
-                            conn.sendall(length)
-                            conn.sendall(send)
+                            try:
+                                delete_previous(path=file_name)
+                                save = 1
+                                time.sleep(2)
+                                send = fin1(file_name)
+                                length = str(len(send)).encode()
+                                conn.sendall(length)
+                                conn.sendall(send)
+                            except Exception as e:
+                                print(e)
+                                conn.close()
+                                break
                         elif msg == 'light on':
                             GPIO.output(17, True)
+                            print("light on")
                         elif msg == 'light off':
                             GPIO.output(17, False)
+                            print('light off')
                         elif msg.lower() == 'exit':
                             print('Client Disconnected')
                             conn.close()

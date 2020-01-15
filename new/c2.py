@@ -26,7 +26,8 @@ def client():
             data_ = str.encode('')
             while len(data_) < int(l):
                 data_ += s.recv(1024)
-            fin2(barr=data_, dfile='new.jpg')
+            #fin2(barr=data_, dfile='new.jpg')
+            fin2(barr=data_, dfile='new.png')
             print('File received')
             s.sendall('exit'.encode())
             s.close()
