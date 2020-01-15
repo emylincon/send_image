@@ -199,7 +199,7 @@ def unicast_call():
                         if msg == 'send image':
                             delete_previous(path=file_name)
                             save = 1
-                            time.sleep(1)
+                            time.sleep(2)
                             send = fin1(file_name)
                             length = str(len(send)).encode()
                             conn.sendall(length)
