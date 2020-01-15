@@ -166,9 +166,15 @@ def graph_temp():
 
 
 def fin1(file):
-    with open(file, "rb") as imageFile:
-        s = base64.b64encode(imageFile.read())
-        return s
+    try:
+        with open(file, "rb") as imageFile:
+            s = base64.b64encode(imageFile.read())
+            return s
+    except FileNotFoundError:
+        time.sleep(1)
+        with open(file, "rb") as imageFile:
+            s = base64.b64encode(imageFile.read())
+            return s
 
 
 def ip_address():
@@ -208,6 +214,7 @@ def unicast_call():
                             except Exception as e:
                                 print(e)
                                 conn.close()
+                                print('Client Disconnected')
                                 break
                         elif msg == 'light on':
                             GPIO.output(17, True)
@@ -223,7 +230,7 @@ def unicast_call():
                             print(msg)
                             conn.close()
                             break
-                        
+
     except Exception as e:
         print(e)
 
