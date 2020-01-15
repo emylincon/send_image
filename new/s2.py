@@ -1,7 +1,5 @@
 import base64
 import codecs as c
-#!/usr/bin/env python3
-
 import socket
 import os
 
