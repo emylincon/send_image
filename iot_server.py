@@ -36,6 +36,19 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT)
 save = 0
 file_name = 'iot.png'
+window = 15
+x_list = []
+base = 0
+
+
+def window_check():
+    global base
+
+    base += 1
+    if len(x_list) > window:
+        x_list.pop(0)
+        cel_x.pop(0)
+        fer_x.pop(0)
 
 
 def read_temp_raw():
@@ -55,8 +68,10 @@ def read_temp():
         temp_string = lines[1][equals_pos + 2:]
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
+        x_list.append(base)
         cel_x.append(temp_c)
         fer_x.append(temp_f)
+        window_check()
 
 
 def calculate_mov_avg(a1):
@@ -72,10 +87,10 @@ def calculate_mov_avg(a1):
 
 
 def plot_normal_graph():
-    x = list(range(len(calculate_mov_avg(cel_x))))
+    #x = list(range(len(calculate_mov_avg(cel_x))))
     ax1.grid(True)
     # ax1.plot(cel_x, linewidth=2, label='Temp C')
-    ax1.plot(x, calculate_mov_avg(cel_x), 'm--*', linewidth=2, label='Temp in C')
+    ax1.plot(x_list, calculate_mov_avg(cel_x), 'm--*', linewidth=2, label='Temp in C')
 
     ax1.set_ylabel('Temperature')
     ax1.set_xlabel('Time (seconds)')
@@ -88,11 +103,11 @@ def plot_normal_graph():
 
 
 def plot_moving_graph():
-    x = list(range(len(fer_x)))
+    #x = list(range(len(fer_x)))
     ax2.grid(True)
     # ax2.plot(fer_x, 'g--^', linewidth=2, label='Temp in F')
     # ax2.fill_between(x, fer_x, 0, alpha=0.5, color='g')
-    ax2.plot(calculate_mov_avg(fer_x), 'g-->', linewidth=2, label='Temp in F')
+    ax2.plot(x_list, calculate_mov_avg(fer_x), 'g-->', linewidth=2, label='Temp in F')
 
     # ax2.set_ylabel('Temperature')
     ax2.set_xlabel('Time (seconds)')
@@ -222,6 +237,16 @@ def unicast_call():
                         elif msg == 'light off':
                             GPIO.output(17, False)
                             print('light off')
+                        elif msg == 'last temp':
+                            l_temp = str(cel_x[-1]).encode()
+                            conn.sendall(l_temp)
+                        elif msg == 'cpu util':
+                            l_cpu = str(_cpu[-1]).encode()
+                            conn.sendall(l_cpu)
+                        elif msg == 'mem util':
+                            l_mem = str(memory[-1]).encode()
+                            conn.sendall(l_mem)
+
                         elif msg.lower() == 'exit':
                             print('Client Disconnected')
                             conn.close()
