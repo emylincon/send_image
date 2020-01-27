@@ -39,7 +39,7 @@ file_name = 'iot.png'
 window = 15
 x_list = []
 base = 0
-
+#192.168.40.135
 
 def window_check():
     global base
